@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -59,8 +60,15 @@ class TagDeleteView(generic.DeleteView):
     template_name = "tasks/tag_confirm_delete.html"
 
 
-def change_task_status(request, pk):
-    task = Task.objects.get(pk=pk)
-    task.is_done = not task.is_done
-    task.save()
-    return redirect("tasks:index")
+class ChangeTaskStatusView(generic.ListView):
+    model = Task
+    fields = "__all__"
+    success_url = reverse_lazy("tasks:index")
+
+    def get(self, request, *args, **kwargs) -> HttpResponseRedirect:
+        task = Task.objects.get(pk=self.kwargs["pk"])
+        task.is_done = not task.is_done
+        task.save()
+        return HttpResponseRedirect(
+            reverse_lazy("tasks:index")
+        )

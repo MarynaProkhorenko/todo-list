@@ -9,7 +9,7 @@ from tasks.views import (
     TagCreateView,
     TagUpdateView,
     TagDeleteView,
-    change_task_status
+    ChangeTaskStatusView,
 )
 
 urlpatterns = [
@@ -47,7 +47,7 @@ urlpatterns = [
     ),
     path(
         "<int:pk>/done/",
-        change_task_status,
+        ChangeTaskStatusView.as_view(),
         name="change-is-done",
     ),
 ]
