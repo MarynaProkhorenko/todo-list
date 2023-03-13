@@ -19,7 +19,7 @@ python manage.py runserver #starts Django Server
 
 ## Demo
 
-![Website Interface](demo(2).png)
+![Website Interface](To_do_list.png)
 
 <br />
 
